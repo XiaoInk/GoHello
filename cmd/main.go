@@ -8,6 +8,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log"
 	"net/http"
 )
 
@@ -26,6 +27,8 @@ func main() {
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(server.Word))
+
+		log.Println(r.RemoteAddr, r.Method, r.RequestURI)
 	})
 
 	http.ListenAndServe(fmt.Sprintf(":%d", server.Port), nil)
